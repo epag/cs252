@@ -22,10 +22,26 @@ app.use(express.static(__dirname + '/public'));
 var appEnv = cfenv.getAppEnv();
 
 // start server on the specified port and binding host
-app.listen(appEnv.port, '0.0.0.0', function() {
+var server = app.listen(appEnv.port, '0.0.0.0', function() {
 
 	// print a message when the server starts listening
   console.log("server starting on " + appEnv.url);
   
   
 });
+
+var io = require('socket.io').listen(server);
+
+io.on('connection', function (socket) {
+	
+	console.log("a user connected!");
+	
+	socket.on('disconnect', function() {
+		console.log('user disconnected');
+	})
+	
+});
+
+
+
+
