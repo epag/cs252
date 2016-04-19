@@ -22,16 +22,20 @@ app.use(express.static(__dirname + '/public'));
 var appEnv = cfenv.getAppEnv();
 
 // start server on the specified port and binding host
-var server = app.listen(appEnv.port, '0.0.0.0', function() {
+//var server = app.listen(appEnv.port, '0.0.0.0', function() {
 
 	// print a message when the server starts listening
-  console.log("server starting on " + appEnv.url);
+  //console.log("server starting on " + appEnv.url);
   
   
-});
+//});
 
 
-var io = require('socket.io').listen(server);
+var http = require('http').Server(app);
+
+var io = require('socket.io')(http);
+
+http.listen(appEnv.port);
 
 io.on('connection', function (socket) {
 	
@@ -42,6 +46,9 @@ io.on('connection', function (socket) {
 	});
 	
 });
+
+//var ibmdb = require('ibm_db');
+//ibmdb.open("DRIVER={DB2};DATABASE=SQLDB;HOSTNAME=75.126.155.153;UID=user17809;PWD=PWHK2WEyIvEo;PORT=50000;PROTOCOL=TCPIP", function (err,conn) {
 
 
 
