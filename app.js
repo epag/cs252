@@ -30,7 +30,7 @@ var server = app.listen(appEnv.port, '0.0.0.0', function() {
   
 });
 
-<<<<<<< HEAD
+
 var io = require('socket.io').listen(server);
 
 io.on('connection', function (socket) {
@@ -46,6 +46,4 @@ io.on('connection', function (socket) {
 
 
 
-=======
-//MYSQL Query for One Word: SELECT "dictionary" FROM "USER17809"."words" ORDER BY RAND() LIMIT 1
->>>>>>> 905212ee2437c67a416c93178784d093cd81ecad
+
