@@ -29,3 +29,5 @@ app.listen(appEnv.port, '0.0.0.0', function() {
   
   
 });
+
+//MYSQL Query for One Word: SELECT "dictionary" FROM "USER17809"."words" ORDER BY RAND() LIMIT 1
