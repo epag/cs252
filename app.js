@@ -39,11 +39,11 @@ io.on('connection', function (socket) {
 	
 	socket.on('disconnect', function() {
 		console.log('user disconnected');
-	})
+	});
 	
 });
 
 
 
 
-
+//SQL Query for One Word: SELECT "dictionary" FROM "USER17809"."words" ORDER BY RAND() LIMIT 1
