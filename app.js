@@ -49,14 +49,13 @@ io.on('connection', function (socket) {
 	
 });
 
+//********************Connect to database and get string********************
 var env = null;
-   var key = -1;
-   // Look for an entry in the VCAP_SERVICES environment variable that has 
-   // the serviceName string in it
-   if (process.env.VCAP_SERVICES) {
-      env = JSON.parse(process.env.VCAP_SERVICES);
-      key = findKey(env,'SQLDB');
-   }
+var key = -1;
+if (process.env.VCAP_SERVICES) {
+	env = JSON.parse(process.env.VCAP_SERVICES);
+    key = findKey(env,'SQLDB');
+}
 
 var ibmdb = require('ibm_db');
 var credentials = env[key][0].credentials;
@@ -70,7 +69,7 @@ ibmdb.open(dsnString, function (err, connection) {
     }
     connection.query("SELECT \"dictionary\" FROM \"USER17809\".\"words\" ORDER BY RAND() FETCH FIRST 1 ROWS ONLY", function (err1, rows) {
       if (err1) console.log(err1);
-      else console.log(rows);
+      else console.log(rows[0].dictionary);
       connection.close(function(err2) { 
         if(err2) console.log(err2);
       });
@@ -89,6 +88,4 @@ function findKey(obj,lookup) {
    }
    return -1;
 }
-
-
-//SQL Query for One Word: SELECT "dictionary" FROM "USER17809"."words" ORDER BY RAND() LIMIT 1
+//********************Connect to database and get string********************
