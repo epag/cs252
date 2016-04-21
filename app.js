@@ -49,10 +49,23 @@ io.on('connection', function (socket) {
 	
 });
 
-//var ibmdb = require('ibm_db');
-//ibmdb.open("DRIVER={DB2};DATABASE=SQLDB;HOSTNAME=75.126.155.153;UID=user17809;PWD=PWHK2WEyIvEo;PORT=50000;PROTOCOL=TCPIP", function (err,conn) {
+var ibmdb = require('ibm_db');
+var connStr = "DATABASE=SQLDB;HOSTNAME=75.126.155.153;PORT=50000;PROTOCOL=TCPIP;UID=user17809;PWD=PWHK2WEyIvEo";
 
-
+ibmdb.open(connStr, function (err, connection) {
+    if (err) 
+    {
+      console.log(err);
+      return;
+    }
+    connection.query("SELECT dictionary FROM USER17809.words ORDER BY RAND() LIMIT 1", function (err1, rows) {
+      if (err1) console.log(err1);
+      else console.log(rows);
+      connection.close(function(err2) { 
+        if(err2) console.log(err2);
+      });
+    });
+});
 
 
 //SQL Query for One Word: SELECT "dictionary" FROM "USER17809"."words" ORDER BY RAND() LIMIT 1
