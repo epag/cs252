@@ -21,7 +21,8 @@
 
 	/*globals getWord */
     function getWord() {                
-
+	  console.log("GetWord");
+	  
       $.ajax({
         type: "GET",
         url: "display.php",             
@@ -84,6 +85,7 @@
 				        document.getElementById("word").innerHTML="";
 				        document.getElementById("message").innerHTML="";
 				        document.getElementById("button").innerHTML="Submit";
+				        console.log("Timer is up");
 				    	getWord();
 
 				        return;
