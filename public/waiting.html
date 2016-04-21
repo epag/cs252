@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="https://pbs.twimg.com/profile_images/696037492290678785/KGJ5CtSV.jpg">
+
+    <title>TypeFight</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="cover.css" rel="stylesheet">
+
+    <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
+    <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
+    <script src="bootstrap/assets/js/ie-emulation-modes-warning.js"></script>
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  </head>
+
+  <body>
+    <div class="site-wrapper">
+
+      <div class="site-wrapper-inner">
+
+        <div class="cover-container">
+
+          <div class="masthead clearfix">
+            <div class="inner">
+              <h3 class="masthead-brand">Type Fight</h3>
+            </div>
+            <div class="bottomBorder"></div>
+          </div>
+          <div class="inner cover">
+          
+          
+          <script type="text/javascript">
+ 
+				/*eslint-env browser */
+				var Timer;
+				var TotalSeconds;
+				var TimeStr = "";
+
+				 
+				function CreateTimer(TimerID, Time) {
+				    Timer = document.getElementById(TimerID);
+				    TotalSeconds = Time;
+				    UpdateTimer();
+				    window.setTimeout("Tick()", 1000);
+				    document.getElementById("interaction").innerHTML="Hit submit or enter after typing your word";
+				}
+				 
+				function Tick() {
+				    if (TotalSeconds <= 0) {
+				        document.getElementById("word").innerHTML="kumquat";
+				        document.getElementById("message").innerHTML="";
+				        document.getElementById("button").innerHTML="Submit";
+
+				        return;
+				    }
+				    TotalSeconds -= 1;
+				    UpdateTimer();
+				    window.setTimeout("Tick()", 1000);
+				}
+				 
+				function UpdateTimer() {
+				    var Seconds = TotalSeconds;
+				    TimeStr = Seconds;
+				    if (TimeStr){
+				    	document.getElementById("message").innerHTML=TimeStr;
+			    }
+
+				}
+				 
+				 
+			</script>
+
+            <h1 class="cover-heading">
+				<div id="word">Word to type will appear here</div>		
+			</h1>
+            <div class="away">
+            	<div id="message">Time till you get a word</div>
+            </div>
+            <div class="away">
+            	<div id="interaction">Click the button when you are ready for a word</div>
+            </div>
+            
+            <form action="" method="post" autocomplete="off">
+			<input name="Name" type="text" value="" /> </br>
+            
+   			<td align="left" colspan="1">
+   			   <button type="button" id="button" onClick="CreateTimer('timer', 10)">Ready?</button> 
+   			</td>
+            </p>
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+    
+    
+    <style type="text/css">
+		#button {
+		    border: solid;
+		    color: black;
+		    font-weight: bold;
+		    padding: 9px 32px;
+		    margin: 20px auto;
+		    text-align: center;
+		    text-decoration: none;
+		    background-color: transparent;
+		    display: inline-block;
+		    font-size: 19px;
+		}
+		
+		#button:hover {
+			border: solid;
+		  	background-color: #b3ffff;
+		}
+		input[type=text], select {
+		    width: 100%;
+		    padding: 10px 20px;
+		    margin: 0 auto;
+		    font-size: 16px;
+		    font-weight: bold;
+		    text-align: center;
+		    display: inline-block;
+		    border: 1px solid #000;
+		    border-radius: 4px;
+		    box-sizing: border-box;
+		}
+		
+	</style> 
+    
+    
+    
+    
+    
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="bootstrap/dist/js/bootstrap.min.js"></script>
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <script src="bootstrap/assets/js/ie10-viewport-bug-workaround.js"></script>
+  </body>
+</html>
+
+<!--<script type="text/javascript">window.onload = CreateTimer("timer", 30);</script>
