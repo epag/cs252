@@ -16,28 +16,24 @@
 
     <!-- Custom styles for this template -->
     <link href="cover.css" rel="stylesheet">
-    
-    <script type="text/javascript">		
-		function stopRKey(evt) {
-		  var evt = (evt) ? evt : ((event) ? event : null);
-		  var node = (evt.target) ? evt.target : ((evt.srcElement) ? evt.srcElement : null);
-		  if ((evt.keyCode == 13) && (node.type=="text"))  
-		  {
-		  	var rand = Math.random();
-		  	if (rand < .49) {
-		  	window.location.href = "https://typefight.mybluemix.net/lose.html";
-		  	
-		  	}else {
-		  		window.location.href = "https://typefight.mybluemix.net/win.html";
-		  	}
-		  	return false;
-		  	}
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script> 
+	<script type="text/javascript">
 
-		}
-		
-		document.onkeypress = stopRKey;
+	/*globals getWord */
+    function getWord() {                
 
-</script> 
+      $.ajax({
+        type: "GET",
+        url: "display.php",             
+        dataType: "html",                   
+        success: function(response){                    
+            $("#word").html(response); 
+        }
+
+    	});
+	}
+
+</script>
 
     <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
     <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
@@ -68,7 +64,7 @@
           
           <script type="text/javascript">
  
-				/*eslint-env browser */
+				/*eslint-env browser, jquery*/
 				var Timer;
 				var TotalSeconds;
 				var TimeStr = "";
@@ -85,9 +81,10 @@
 				 
 				function Tick() {
 				    if (TotalSeconds <= 0) {
-				        document.getElementById("word").innerHTML="kumquat";
+				        document.getElementById("word").innerHTML="";
 				        document.getElementById("message").innerHTML="";
 				        document.getElementById("button").innerHTML="Submit";
+				    	getWord();
 
 				        return;
 				    }
