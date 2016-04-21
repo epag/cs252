@@ -49,10 +49,20 @@ io.on('connection', function (socket) {
 	
 });
 
-var ibmdb = require('ibm_db');
-var connStr = "DATABASE=SQLDB;HOSTNAME=75.126.155.153;PORT=50000;PROTOCOL=TCPIP;UID=user17809;PWD=PWHK2WEyIvEo";
+var env = null;
+   var key = -1;
+   // Look for an entry in the VCAP_SERVICES environment variable that has 
+   // the serviceName string in it
+   if (process.env.VCAP_SERVICES) {
+      env = JSON.parse(process.env.VCAP_SERVICES);
+      key = findKey(env,'SQLDB');
+   }
 
-ibmdb.open(connStr, function (err, connection) {
+var ibmdb = require('ibm_db');
+var credentials = env[key][0].credentials;
+var dsnString = "DRIVER={DB2};DATABASE=" + credentials.db + ";UID=" + credentials.username + ";PWD=" + credentials.password + ";HOSTNAME=" + credentials.hostname + ";port=" + credentials.port;
+      
+ibmdb.open(dsnString, function (err, connection) {
     if (err) 
     {
       console.log(err);
@@ -66,6 +76,19 @@ ibmdb.open(connStr, function (err, connection) {
       });
     });
 });
+
+function findKey(obj,lookup) {
+   for (var i in obj) {
+      if (typeof(obj[i])==="object") {
+         if (i.toUpperCase().indexOf(lookup) > -1) {
+            // Found the key
+            return i;
+         }
+         findKey(obj[i],lookup);
+      }
+   }
+   return -1;
+}
 
 
 //SQL Query for One Word: SELECT "dictionary" FROM "USER17809"."words" ORDER BY RAND() LIMIT 1
