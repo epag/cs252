@@ -16,6 +16,28 @@
 
     <!-- Custom styles for this template -->
     <link href="cover.css" rel="stylesheet">
+    
+    <script type="text/javascript">		
+		function stopRKey(evt) {
+		  var evt = (evt) ? evt : ((event) ? event : null);
+		  var node = (evt.target) ? evt.target : ((evt.srcElement) ? evt.srcElement : null);
+		  if ((evt.keyCode == 13) && (node.type=="text"))  
+		  {
+		  	var rand = Math.random();
+		  	if (rand < .49) {
+		  	window.location.href = "https://htmlwork.mybluemix.net/lose.html";
+		  	
+		  	}else {
+		  		window.location.href = "https://htmlwork.mybluemix.net/win.html";
+		  	}
+		  	return false;
+		  	}
+
+		}
+		
+		document.onkeypress = stopRKey;
+
+</script> 
 
     <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
     <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
@@ -57,7 +79,8 @@
 				    TotalSeconds = Time;
 				    UpdateTimer();
 				    window.setTimeout("Tick()", 1000);
-				    document.getElementById("interaction").innerHTML="Hit submit or enter after typing your word";
+				    document.getElementById("interaction").innerHTML="Hit enter after typing your word";
+				    document.getElementById("hack").innerHTML = " ";
 				}
 				 
 				function Tick() {
@@ -95,12 +118,16 @@
             	<div id="interaction">Click the button when you are ready for a word</div>
             </div>
             
-            <form action="" method="post" autocomplete="off">
-			<input name="Name" type="text" value="" /> </br>
             
+  
+	            <form action="" method="post" autocomplete="off">
+				<input id="word" type="text" value="" " />
+
+                      <span id="hack">
    			<td align="left" colspan="1">
-   			   <button type="button" id="button" onClick="CreateTimer('timer', 10)">Ready?</button> 
+   			   <button type="button" id="button" onClick="CreateTimer('timer', 5)">Ready?</button> 
    			</td>
+   						</span>
             </p>
           </div>
 
