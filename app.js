@@ -68,7 +68,7 @@ ibmdb.open(dsnString, function (err, connection) {
       console.log(err);
       return;
     }
-    connection.query("SELECT \"dictionary\" FROM \"USER17809\".\"words\" ORDER BY RAND() LIMIT 1", function (err1, rows) {
+    connection.query("SELECT \"dictionary\" FROM \"USER17809\".\"words\" ORDER BY RAND() FETCH FIRST 1 ROWS ONLY", function (err1, rows) {
       if (err1) console.log(err1);
       else console.log(rows);
       connection.close(function(err2) { 
