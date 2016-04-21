@@ -28,11 +28,12 @@
         url: "display.php",             
         dataType: "html",                   
         success: function(response){                    
-            $("#word").html(response); 
+            return response;
         }
+	});
+	return "Memes";
+}
 
-    	});
-	}
 
 </script>
 
@@ -104,11 +105,11 @@
 				 
 				function Tick() {
 				    if (TotalSeconds <= 0) {
-				        document.getElementById("word").innerHTML="";
+				        document.getElementById("word").innerHTML=getWord();
 				        document.getElementById("message").innerHTML="";
 				        document.getElementById("button").innerHTML="Submit";
 				        console.log("Timer is up");
-				    	getWord();
+				    	
 
 				        return;
 				    }
