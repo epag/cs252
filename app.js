@@ -8,7 +8,7 @@ console.log("App started");
 
 // This application uses express as its web server
 // for more info, see: http://expressjs.com
-var express = require('express');
+var express = require("express");
 
 // cfenv provides access to your Cloud Foundry environment
 // for more info, see: https://www.npmjs.com/package/cfenv
@@ -37,9 +37,13 @@ var http = require('http').Server(app);
 
 var io = require('socket.io')(http);
 
-http.listen(appEnv.port);
+app.listen(appEnv.port, appEnv.bind, function() {
+		console.log("Server starting on " + appEnv.url);
+});
 
-io.on('connection', function (socket) {
+
+
+io.on("connection", function (socket) {
 	
 	console.log("a user connected!");
 	
@@ -48,6 +52,9 @@ io.on('connection', function (socket) {
 	});
 	
 });
+
+
+
 
 //********************Connect to database and get string********************
 var env = null;
