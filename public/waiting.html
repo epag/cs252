@@ -17,28 +17,10 @@
     <!-- Custom styles for this template -->
     <link href="cover.css" rel="stylesheet">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script> 
-	<script type="text/javascript">
-
-	/*globals getWord */
-    function getWord() {
+    
+    
+  <script src="/client.js"></script>
   
-    	
-	  console.log("GetWord");
-	  
-      $.ajax({
-        type: "GET",
-        url: "display.php",             
-        dataType: "html",                   
-        success: function(response){                    
-            return response;
-        }
-	});
-	return "Memes";
-}
-
-
-</script>
-
 <script type="text/javascript">		
 		function stopRKey(evt) {
 		  var evt = (evt) ? evt : ((event) ? event : null);
@@ -116,7 +98,7 @@
 				 
 				function Tick() {
 				    if (TotalSeconds <= 0) {
-				        document.getElementById("word").innerHTML=getWord();
+				        document.getElementById("word").innerHTML="Waiting";
 				        document.getElementById("message").innerHTML="";
 				        document.getElementById("button").innerHTML="Submit";
 				        console.log("Timer is up");

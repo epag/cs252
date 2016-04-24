@@ -33,9 +33,19 @@ app.listen(appEnv.port, appEnv.bind, function() {
 
 
 
+
 io.on("connection", function (socket) {
 	
 	console.log("a user connected!");
+	
+	
+  socket.on('get word', function () {
+  	var str = pullWord();
+  	console.log(str);
+    socket.broadcast.emit('get word', {
+      word: str
+    });
+  });
 	
 	socket.on('disconnect', function() {
 		console.log('user disconnected');
@@ -43,22 +53,11 @@ io.on("connection", function (socket) {
 	
 });
 
-<<<<<<< HEAD
-var word = pullWord();
-=======
 
 
 
-//********************Connect to database and get string********************
-var env = null;
-var key = -1;
-if (process.env.VCAP_SERVICES) {
-	env = JSON.parse(process.env.VCAP_SERVICES);
-    key = findKey(env,'SQLDB');
-}
->>>>>>> 0b41b8a2bf1aabdab07c5cb0e61db6ad7776a20d
 
-console.log(word);
+
 
 function pullWord(){
 	//********************Connect to database and get string********************
