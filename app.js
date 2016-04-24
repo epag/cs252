@@ -8,7 +8,7 @@ console.log("App started");
 
 // This application uses express as its web server
 // for more info, see: http://expressjs.com
-var express = require('express');
+var express = require("express");
 
 // cfenv provides access to your Cloud Foundry environment
 // for more info, see: https://www.npmjs.com/package/cfenv
@@ -27,9 +27,13 @@ var http = require('http').Server(app);
 
 var io = require('socket.io')(http);
 
-http.listen(appEnv.port);
+app.listen(appEnv.port, appEnv.bind, function() {
+		console.log("Server starting on " + appEnv.url);
+});
 
-io.on('connection', function (socket) {
+
+
+io.on("connection", function (socket) {
 	
 	console.log("a user connected!");
 	
@@ -39,7 +43,20 @@ io.on('connection', function (socket) {
 	
 });
 
+<<<<<<< HEAD
 var word = pullWord();
+=======
+
+
+
+//********************Connect to database and get string********************
+var env = null;
+var key = -1;
+if (process.env.VCAP_SERVICES) {
+	env = JSON.parse(process.env.VCAP_SERVICES);
+    key = findKey(env,'SQLDB');
+}
+>>>>>>> 0b41b8a2bf1aabdab07c5cb0e61db6ad7776a20d
 
 console.log(word);
 
