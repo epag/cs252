@@ -23,16 +23,6 @@ app.use(express.static(__dirname + '/public'));
 // get the app environment from Cloud Foundry
 var appEnv = cfenv.getAppEnv();
 
-// start server on the specified port and binding host
-//var server = app.listen(appEnv.port, '0.0.0.0', function() {
-
-	// print a message when the server starts listening
-  //console.log("server starting on " + appEnv.url);
-  
-  
-//});
-
-
 var http = require('http').Server(app);
 
 var io = require('socket.io')(http);
@@ -49,36 +39,50 @@ io.on('connection', function (socket) {
 	
 });
 
-//********************Connect to database and get string********************
-var env = null;
-var key = -1;
-if (process.env.VCAP_SERVICES) {
-	env = JSON.parse(process.env.VCAP_SERVICES);
-    key = findKey(env,'SQLDB');
-}
+var word = pullWord();
 
-var ibmdb = require('ibm_db');
-var credentials = env[key][0].credentials;
-var dsnString = "DRIVER={DB2};DATABASE=" + credentials.db + ";UID=" + credentials.username + ";PWD=" + credentials.password + ";HOSTNAME=" + credentials.hostname + ";port=" + credentials.port;
+console.log(word);
+
+function pullWord(){
+	//********************Connect to database and get string********************
+	var word = null;
+	var env = null;
+	var key = -1;
+	if (process.env.VCAP_SERVICES) {
+		env = JSON.parse(process.env.VCAP_SERVICES);
+	    key = findKey(env,'SQLDB');
+	}
+
+	var ibmdb = require('ibm_db');
+	var credentials = env[key][0].credentials;
+	var dsnString = "DRIVER={DB2};DATABASE=" + credentials.db + ";UID=" + credentials.username + ";PWD=" + credentials.password + ";HOSTNAME=" + credentials.hostname + ";port=" + credentials.port;
       
-ibmdb.open(dsnString, function (err, connection) {
+	ibmdb.open(dsnString, function (err, connection) {
     if (err) 
     {
-      console.log(err);
-      return;
+      	console.log(err);
+      	return;
     }
-    connection.query("SELECT \"dictionary\" FROM \"USER17809\".\"words\" ORDER BY RAND() FETCH FIRST 1 ROWS ONLY", function (err1, rows) {
-      if (err1) console.log(err1);
-      else console.log(rows[0].dictionary);
-      connection.close(function(err2) { 
-        if(err2) console.log(err2);
-      });
-    });
-});
+    	connection.query("SELECT \"dictionary\" FROM \"USER17809\".\"words\" ORDER BY RAND() FETCH FIRST 1 ROWS ONLY", function (err1, rows) {
+      	if (err1) console.log(err1);
+      	else 
+      	{
+      		console.log(rows[0].dictionary);
+      		word = rows[0].dictionary;
+  		}
+
+      	connection.close(function(err2) { 
+        	if(err2) console.log(err2);
+      	});
+    	});
+	});
+	
+	return word;
+}
 
 function findKey(obj,lookup) {
    for (var i in obj) {
-      if (typeof(obj[i])==="object") {
+      if (typeof(obj[i]) === "object") {
          if (i.toUpperCase().indexOf(lookup) > -1) {
             // Found the key
             return i;
@@ -89,3 +93,4 @@ function findKey(obj,lookup) {
    return -1;
 }
 //********************Connect to database and get string********************
+
