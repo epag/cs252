@@ -36,7 +36,7 @@ app.get('/', function(res) {
 var word;
 var time2 = 0;
 var SSID;
-
+var wordCallCount = 0;
 
 //We pull the word because the first time is always undefined
 pullWord();
@@ -50,12 +50,16 @@ io.on("connection", function (socket) {
 	//clients[socket.id] = socket;
 	clients.push(socket.id);
 	
+	
     socket.on('get word', function () {
-	pullWord();
+		wordCallCount++;
+		console.log("Get word count: " + wordCallCount);
+		if(wordCallCount >= 2){
+			pullWord();
+			console.log("Get Word: " + word);
+    		io.emit('message', word);
+	}
 
-	console.log("Get Word: " + word);
-  	
-    io.emit('message', word);
     });
   
   	socket.on("select winner", function(time1)

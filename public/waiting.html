@@ -96,15 +96,25 @@
   					socket.emit("get word");
   					socket.on('message', function(message){
     					finalWord = message.toString();
-    				});
-				    Timer = document.getElementById(TimerID);
-				    TotalSeconds = Time;
-				    UpdateTimer();
-				    window.setTimeout("Tick()", 1000);
-				    document.getElementById("interaction").innerHTML="Hit enter after typing your word";
-				    document.getElementById("hack").innerHTML = " ";
+				    	Timer = document.getElementById(TimerID);
+				    	TotalSeconds = Time;
+				    	UpdateTimer();
+				   		window.setTimeout("Tick()", 1000);
+				    	document.getElementById("interaction").innerHTML="Hit enter after typing your word";
+				    	document.getElementById("hack").innerHTML = " ";
+			    	});
+
 				}
 				 
+				function getWord() {
+					var wordFromServer = "didnt work...";
+					socket.emit("get word");
+  					socket.on('message', function(message){
+    					wordFromServer = message.toString();
+    				});
+    				
+    				return wordFromServer;
+				}
 				function Tick() {
 				    if (TotalSeconds <= 0) {
 				        document.getElementById("word").innerHTML= finalWord;
