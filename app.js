@@ -39,8 +39,12 @@ io.on("connection", function (socket) {
 	
   socket.on('get word', function () {
   	var str = pullWord();
-  	console.log(str);
-    socket.broadcast.emit('get word', {
+  	setTimeout(function(){
+
+
+	},3000); 
+  	console.log("Server emits " + str + "\n");
+    socket.broadcast.emit('send word', {
       word: str
     });
   });
@@ -80,7 +84,7 @@ function pullWord(){
       	if (err1) console.log(err1);
       	else 
       	{
-      		console.log(rows[0].dictionary);
+      		console.log("Database returns: " + rows[0].dictionary + "\n");
       		word = rows[0].dictionary;
   		}
 
