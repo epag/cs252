@@ -17,6 +17,7 @@
     <!-- Custom styles for this template -->
     <link href="cover.css" rel="stylesheet">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script> 
+<<<<<<< HEAD
 	<script type="text/javascript">
 
 	/*globals getWord */
@@ -39,22 +40,21 @@
 
 </script>
 
+=======
+    
+    
+  <script src="/client.js"></script>
+  
+>>>>>>> 28924340cf66c43e6dea0c44146f417e86a926e2
 <script type="text/javascript">		
 		function stopRKey(evt) {
 		  var evt = (evt) ? evt : ((event) ? event : null);
 		  var node = (evt.target) ? evt.target : ((evt.srcElement) ? evt.srcElement : null);
 		  if ((evt.keyCode == 13) && (node.type=="text"))  
 		  {
-		  	var rand = Math.random();
-		  	if (rand < .49) {
-		  	window.location.href = "https://typefight.mybluemix.net/lose.html";
-		  	
-		  	}else {
-		  		window.location.href = "https://typefight.mybluemix.net/win.html";
-		  	}
+		  	window.location.href = "https://typefight.mybluemix.net/loading.html";
 		  	return false;
-		  	}
-
+		  }
 		}
 		
 		document.onkeypress = stopRKey;
@@ -97,6 +97,9 @@
 		        
           
           
+		        
+          
+          
           <script type="text/javascript">
  
 				/*eslint-env browser, jquery*/
@@ -116,7 +119,7 @@
 				 
 				function Tick() {
 				    if (TotalSeconds <= 0) {
-				        document.getElementById("word").innerHTML=getWord();
+				        document.getElementById("word").innerHTML="Waiting";
 				        document.getElementById("message").innerHTML="";
 				        document.getElementById("button").innerHTML="Submit";
 				        console.log("Timer is up");
