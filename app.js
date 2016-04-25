@@ -45,12 +45,12 @@ io.on("connection", function (socket) {
 	
   socket.on('get word', function () {
 	pullWord();
-	setTimeout(function(){
-		console.log("sleeping");
-	}, 1000);
+	//setTimeout(function(){
+	//	console.log("sleeping");
+	//}, 1000);
 	console.log("Get Word: " + word);
   	
-    socket.broadcast.emit('message', word);
+    io.emit('message', word);
   });
 	
 	socket.on('disconnect', function() {

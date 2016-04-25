@@ -50,28 +50,6 @@
   <body>
  
   <script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
-
-
-
-<script>   
-
-  /*globals io */
-  function updateWord()
-  {
-  	console.log("set wordFromServer");
-  	
-  	var socket = io();
-  	socket.emit("get word");
-	
-	//Set delay between getting word and setting it
-	setTimeout(function(){},3000);
-	
-	socket.on('message', function(message){
-    	document.getElementById("word").innerHTML = message.toString();
-    });
-  }
-
- </script>
   	
   	<!-- Trying to make calls to the server -->
     <!-- <script src="http://typefight.mybluemix.com/socket.io/socket.io.js"></script> -->
@@ -104,9 +82,15 @@
 				var Timer;
 				var TotalSeconds;
 				var TimeStr = "";
+				var finalWord;
 
 				 
 				function CreateTimer(TimerID, Time) {
+					var socket = io();
+  					socket.emit("get word");
+  					socket.on('message', function(message){
+    					finalWord = message.toString();
+    				});
 				    Timer = document.getElementById(TimerID);
 				    TotalSeconds = Time;
 				    UpdateTimer();
@@ -117,8 +101,8 @@
 				 
 				function Tick() {
 				    if (TotalSeconds <= 0) {
-				        document.getElementById("word").innerHTML="Waiting";
-				        updateWord();
+				        document.getElementById("word").innerHTML= finalWord;
+				        //updateWord();
 				        document.getElementById("message").innerHTML="";
 				        document.getElementById("button").innerHTML="Submit";
 				        console.log("Timer is up");
