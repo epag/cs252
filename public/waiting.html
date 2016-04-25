@@ -21,11 +21,15 @@
 
 
 <script type="text/javascript">		
+		/*globals io */
+		
+		
 		function stopRKey(evt) {
 		  var evt = (evt) ? evt : ((event) ? event : null);
 		  var node = (evt.target) ? evt.target : ((evt.srcElement) ? evt.srcElement : null);
 		  if ((evt.keyCode == 13) && (node.type=="text"))  
 		  {
+		  	determineTime(Date.now());
 		  	window.location.href = "https://typefight.mybluemix.net/loading.html";
 		  	return false;
 		  }
@@ -83,10 +87,10 @@
 				var TotalSeconds;
 				var TimeStr = "";
 				var finalWord;
-
-				 
+				var socket = io();
+				var startTime;
+				
 				function CreateTimer(TimerID, Time) {
-					var socket = io();
   					socket.emit("get word");
   					socket.on('message', function(message){
     					finalWord = message.toString();
@@ -102,7 +106,7 @@
 				function Tick() {
 				    if (TotalSeconds <= 0) {
 				        document.getElementById("word").innerHTML= finalWord;
-				        //updateWord();
+				        startTime = Date.now();
 				        document.getElementById("message").innerHTML="";
 				        document.getElementById("button").innerHTML="Submit";
 				        console.log("Timer is up");
@@ -113,6 +117,12 @@
 				    TotalSeconds -= 1;
 				    UpdateTimer();
 				    window.setTimeout("Tick()", 1000);
+				}
+				
+				function determineTime(endTime) {
+		  			var typeTime = endTime - startTime;
+		  			socket.emit('select winner', typeTime);
+		  			console.log(typeTime);
 				}
 				 
 				function UpdateTimer() {
