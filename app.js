@@ -67,28 +67,27 @@ io.on("connection", function (socket) {
   		console.log("Time was: " + actualTime1);
   		if(time2 !== 0)
   		{
-  			if(parseInt(time1.toString, 10) > time2)
+  			if(actualTime1 > time2)
 			{
 				console.log("Winner is user1");
-				socket.sendFile("/public/win.html");
-				clients[1].sendFile("/public/lose.html");
+				socket.emit("you lose");
+				socket.broadcast.emit("you win");
 				SSID = null;
 				time2 = null;
 			}
-			else if (parseInt(time1.toString, 10) < time2)
+			else if (actualTime1 < time2)
 			{
 				console.log("Winner is user2");
-				socket.sendFile("/public/lose.html");
-				clients[1].sendFile("/public/win.html");
+				socket.emit("you won");
+				socket.broadcast.emit("you lose");
 				SSID = null;
 				time2 = null;
 			}
-			else if (parseInt(time1.toString, 10) === time2)
+			else if (actualTime1 === time2)
 			{
 				//Highly unlikely
 				console.log("Tie");
-				socket.sendFile("/public/win.html");
-				clients[1].sendFile("/public/win.html");
+				io.emit("you won");
 			}
   		}
   		else

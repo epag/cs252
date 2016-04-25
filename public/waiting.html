@@ -31,6 +31,7 @@
 		  {
 		  	console.log("Enter was pressed");
 		  	determineTime(Date.now());
+		  	getResults();
 		  	//window.location.href = "https://typefight.mybluemix.net/loading.html";
 		  	return false;
 		  }
@@ -118,6 +119,16 @@
 				    TotalSeconds -= 1;
 				    UpdateTimer();
 				    window.setTimeout("Tick()", 1000);
+				}
+				
+				function getResults() {
+					socket.on('you won', function(){
+						window.location.href = "https://typefight.mybluemix.net/win.html";
+					});
+					
+					socket.on('you lost', function() {
+						window.location.href = "https://typefight.mybluemix.net/lose.html";
+					});
 				}
 				
 				function determineTime(endTime) {
