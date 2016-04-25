@@ -34,7 +34,8 @@ app.get('/', function(res) {
 });
 
 var word;
-
+var time2 = 0;
+var SSID;
 
 
 //We pull the word because the first time is always undefined
@@ -44,9 +45,7 @@ console.log(word);
 var clients = [];
 
 io.on("connection", function (socket) {
-	var time2;
-	
-	var SSID;
+
 	console.log("a user connected!");	
 	//clients[socket.id] = socket;
 	clients.push(socket.id);
@@ -61,9 +60,12 @@ io.on("connection", function (socket) {
   
   	socket.on("select winner", function(time1)
   	{
-  		console.log("Time was: " + parseInt(time1.toString(), 10));
   		
-  		if(time2 !== null)
+  		
+  		var actualTime1 = parseInt(time1.toString(), 10);
+  		
+  		console.log("Time was: " + actualTime1);
+  		if(time2 !== 0)
   		{
   			if(parseInt(time1.toString, 10) > time2)
 			{
@@ -91,12 +93,12 @@ io.on("connection", function (socket) {
   		}
   		else
   		{
-  			console.log("Saved to time2: " + parseInt(time1.toString(), 10));
-  			time2 = parseInt(time1.toString(), 10);
+  			console.log("Saved to time2: " + actualTime1);
+  			time2 = actualTime1;
   			SSID = socket.id;
   		}
   		
-  		console.log("Time1: " + parseInt(time1.toString, 10) + "\nTime2: " + time2);
+  		console.log("Time1: " + actualTime1 + "\nTime2: " + time2);
   	});
 	
 	socket.on('disconnect', function() {
