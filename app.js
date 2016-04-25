@@ -33,7 +33,10 @@ app.listen(appEnv.port, appEnv.bind, function() {
 
 
 
+<<<<<<< HEAD
+=======
 
+>>>>>>> 28924340cf66c43e6dea0c44146f417e86a926e2
 io.on("connection", function (socket) {
 	
 	console.log("a user connected!");
@@ -53,6 +56,19 @@ io.on("connection", function (socket) {
 	
 });
 
+<<<<<<< HEAD
+
+
+
+//********************Connect to database and get string********************
+var env = null;
+var key = -1;
+if (process.env.VCAP_SERVICES) {
+	env = JSON.parse(process.env.VCAP_SERVICES);
+    key = findKey(env,'SQLDB');
+}
+=======
+>>>>>>> 28924340cf66c43e6dea0c44146f417e86a926e2
 
 
 

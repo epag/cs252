@@ -17,8 +17,33 @@
     <!-- Custom styles for this template -->
     <link href="cover.css" rel="stylesheet">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script> 
+<<<<<<< HEAD
+	<script type="text/javascript">
+
+	/*globals getWord */
+    function getWord() {
+  
+    	
+	  console.log("GetWord");
+	  
+      $.ajax({
+        type: "GET",
+        url: "display.php",             
+        dataType: "html",                   
+        success: function(response){                    
+            return response;
+        }
+	});
+	return "Memes";
+}
+
+
+</script>
+
+=======
     
     
+<<<<<<< HEAD
 <script type="text/javascript">	
    
   /*globals io */
@@ -34,22 +59,20 @@
 
  </script>
  
+=======
+  <script src="/client.js"></script>
+  
+>>>>>>> 28924340cf66c43e6dea0c44146f417e86a926e2
+>>>>>>> e5ce018d5312a5fa149519e064e90ddb9341aa7c
 <script type="text/javascript">		
 		function stopRKey(evt) {
 		  var evt = (evt) ? evt : ((event) ? event : null);
 		  var node = (evt.target) ? evt.target : ((evt.srcElement) ? evt.srcElement : null);
 		  if ((evt.keyCode == 13) && (node.type=="text"))  
 		  {
-		  	var rand = Math.random();
-		  	if (rand < .49) {
-		  	window.location.href = "https://typefight.mybluemix.net/lose.html";
-		  	
-		  	}else {
-		  		window.location.href = "https://typefight.mybluemix.net/win.html";
-		  	}
+		  	window.location.href = "https://typefight.mybluemix.net/loading.html";
 		  	return false;
-		  	}
-
+		  }
 		}
 		
 		document.onkeypress = stopRKey;
@@ -87,6 +110,9 @@
             <div class="bottomBorder"></div>
           </div>
           <div class="inner cover">
+          
+          
+		        
           
           
 		        
