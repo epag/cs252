@@ -34,61 +34,69 @@ app.get('/', function(res) {
 });
 
 var word;
-var time2;
-var SSID;
+
+
 
 //We pull the word because the first time is always undefined
 pullWord();
 console.log(word);
 
-var clients = {};
+var clients = [];
 
 io.on("connection", function (socket) {
+	var time2;
 	
+	var SSID;
 	console.log("a user connected!");	
-	clients[socket.id] = socket;
+	//clients[socket.id] = socket;
+	clients.push(socket.id);
 	
-  socket.on('get word', function () {
+    socket.on('get word', function () {
 	pullWord();
 
 	console.log("Get Word: " + word);
   	
     io.emit('message', word);
-  });
+    });
   
   	socket.on("select winner", function(time1)
   	{
+  		console.log("Time was: " + parseInt(time1.toString(), 10));
+  		
   		if(time2 !== null)
   		{
-  			if(time1 > time2)
+  			if(parseInt(time1.toString, 10) > time2)
 			{
 				console.log("Winner is user1");
 				socket.sendFile("/public/win.html");
-				clients[SSID].sendFile("/public/lose.html");
+				clients[1].sendFile("/public/lose.html");
 				SSID = null;
 				time2 = null;
 			}
-			else if (time1 < time2)
+			else if (parseInt(time1.toString, 10) < time2)
 			{
 				console.log("Winner is user2");
 				socket.sendFile("/public/lose.html");
-				clients[SSID].sendFile("/public/win.html");
+				clients[1].sendFile("/public/win.html");
 				SSID = null;
 				time2 = null;
 			}
-			else if (time1 === time2)
+			else if (parseInt(time1.toString, 10) === time2)
 			{
 				//Highly unlikely
 				console.log("Tie");
 				socket.sendFile("/public/win.html");
-				clients[SSID].sendFile("/public/win.html");
+				clients[1].sendFile("/public/win.html");
 			}
   		}
   		else
   		{
-  			time2 = time1;
+  			console.log("Saved to time2: " + parseInt(time1.toString(), 10));
+  			time2 = parseInt(time1.toString(), 10);
   			SSID = socket.id;
   		}
+  		
+  		console.log("Time1: " + parseInt(time1.toString, 10) + "\nTime2: " + time2);
   	});
 	
 	socket.on('disconnect', function() {

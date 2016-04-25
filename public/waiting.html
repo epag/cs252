@@ -29,8 +29,9 @@
 		  var node = (evt.target) ? evt.target : ((evt.srcElement) ? evt.srcElement : null);
 		  if ((evt.keyCode == 13) && (node.type=="text"))  
 		  {
+		  	console.log("Enter was pressed");
 		  	determineTime(Date.now());
-		  	window.location.href = "https://typefight.mybluemix.net/loading.html";
+		  	//window.location.href = "https://typefight.mybluemix.net/loading.html";
 		  	return false;
 		  }
 		}
@@ -122,7 +123,7 @@
 				function determineTime(endTime) {
 		  			var typeTime = endTime - startTime;
 		  			socket.emit('select winner', typeTime);
-		  			console.log(typeTime);
+		  			//alert(typeTime);
 				}
 				 
 				function UpdateTimer() {
