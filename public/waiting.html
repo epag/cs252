@@ -23,7 +23,11 @@
 <script type="text/javascript">		
 		/*globals io */
 		
-		
+		/*
+		 * Checks for the enter key being pressed. When it is 
+		 * the time it took to enter the word is calculated and 
+		 * then the results are found.
+		 */
 		function stopRKey(evt) {
 		  var evt = (evt) ? evt : ((event) ? event : null);
 		  var node = (evt.target) ? evt.target : ((evt.srcElement) ? evt.srcElement : null);
@@ -92,6 +96,11 @@
 				var socket = io();
 				var startTime;
 				
+				/*
+				 * Tells the server it is ready for a word and 
+				 * waits for the server to respond. Once it gets
+				 * a response it then starts the counter. 
+				 */
 				function CreateTimer(TimerID, Time) {
   					socket.emit("get word");
   					socket.on('message', function(message){
@@ -105,16 +114,11 @@
 			    	});
 
 				}
-				 
-				function getWord() {
-					var wordFromServer = "didnt work...";
-					socket.emit("get word");
-  					socket.on('message', function(message){
-    					wordFromServer = message.toString();
-    				});
-    				
-    				return wordFromServer;
-				}
+				
+				/*
+				 * Runs the counter. When the counter reaches zero
+				 * then it displays the word.
+				 */
 				function Tick() {
 				    if (TotalSeconds <= 0) {
 				        document.getElementById("word").innerHTML= finalWord;
@@ -131,6 +135,11 @@
 				    window.setTimeout("Tick()", 1000);
 				}
 				
+				/*
+				 * Waits for the server to tell the client whether 
+				 * they won or lost. When the get the response they
+				 * redirect to the respective page
+				 */
 				function getResults() {
 					socket.on('you won', function(){
 						window.location.href = "https://typefight.mybluemix.net/win.html";
@@ -141,12 +150,19 @@
 					});
 				}
 				
+				/*
+				 * Calculates the total time to type the word and 
+				 * hit enter
+				 */
 				function determineTime(endTime) {
 		  			var typeTime = endTime - startTime;
 		  			socket.emit('select winner', typeTime);
 		  			//alert(typeTime);
 				}
 				 
+				 /*
+				  * Updates the counter
+				  */
 				function UpdateTimer() {
 				    var Seconds = TotalSeconds;
 				    TimeStr = Seconds;

@@ -54,10 +54,11 @@ io.on("connection", function (socket) {
     socket.on('get word', function () {
 		wordCallCount++;
 		console.log("Get word count: " + wordCallCount);
-		if(wordCallCount >= 2){
+		if(wordCallCount === 2){
 			pullWord();
 			console.log("Get Word: " + word);
     		io.emit('message', word);
+    		wordCallCount = 0;
 	}
 
     });
@@ -77,15 +78,15 @@ io.on("connection", function (socket) {
 				socket.emit("you lost");
 				socket.broadcast.emit("you won");
 				SSID = null;
-				time2 = null;
+				time2 = 0;
 			}
 			else if (actualTime1 < time2)
 			{
 				console.log("Winner is user2");
 				socket.emit("you won");
 				socket.broadcast.emit("you lost");
-				SSID = null;
-				time2 = null;
+				//SSID = null;
+				time2 = 0;
 			}
 			else if (actualTime1 === time2)
 			{
@@ -98,7 +99,7 @@ io.on("connection", function (socket) {
   		{
   			console.log("Saved to time2: " + actualTime1);
   			time2 = actualTime1;
-  			SSID = socket.id;
+  			//SSID = socket.id;
   		}
   		
   		console.log("Time1: " + actualTime1 + "\nTime2: " + time2);
