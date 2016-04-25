@@ -28,26 +28,20 @@ var http = require('http').Server(app);
 var io = require('socket.io')(http);
 
 app.get('/', function(req, res) {
-		res.sendfile('index.html');
+		res.sendfile('/index.html');
 });
 
 
-io.on("connection", function (socket) {
-	
-	console.log("a user connected!");
-	
-	
-  socket.on('get word', function () {
-  	var str = pullWord();
-  	setTimeout(function(){
-
-
-	},3000); 
-  	console.log("Server emits " + str + "\n");
-    socket.broadcast.emit('send word', {
-      word: str
-    });
-  });
+io.on('connection', function (socket) {
+   console.log("a user connected!");
+   var words = ["Yikes", "Same", "Twist", "Horny", "Memes", "Uegh"];
+   var tempNum = Math.floor(Math.random() * 5);
+    
+   var str = words[tempNum];
+    
+   console.log("Server emits " + str + "\n");
+   socket.emit('message', str);
+   
 	
 	socket.on('disconnect', function() {
 		console.log('user disconnected');
@@ -84,7 +78,7 @@ function pullWord(){
       	if (err1) console.log(err1);
       	else 
       	{
-      		console.log("Database returns: " + rows[0].dictionary + "\n");
+      		//console.log("Database returns: " + rows[0].dictionary + "\n");
       		word = rows[0].dictionary;
   		}
 
