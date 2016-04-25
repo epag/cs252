@@ -17,13 +17,15 @@
     <!-- Custom styles for this template -->
     <link href="cover.css" rel="stylesheet">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script> 
+<!--
+<script src="/socket.io/socket.io.js"></script>
 
-<script type="text/javascript">	
-   
+<script>   
   /*globals io */
   function updateWord()
   {
   	var socket = io();
+  	console.log("Updating word");
   	socket.emit('get word');
   	//Need to figure out how to get response from the socket.
   	
@@ -32,7 +34,8 @@
   }
 
  </script>
- 
+ */
+-->
 <script type="text/javascript">		
 		function stopRKey(evt) {
 		  var evt = (evt) ? evt : ((event) ? event : null);

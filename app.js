@@ -27,8 +27,8 @@ var http = require('http').Server(app);
 
 var io = require('socket.io')(http);
 
-app.listen(appEnv.port, appEnv.bind, function() {
-		console.log("Server starting on " + appEnv.url);
+app.get('/', function(req, res) {
+		res.sendfile('index.html');
 });
 
 
@@ -49,6 +49,10 @@ io.on("connection", function (socket) {
 		console.log('user disconnected');
 	});
 	
+});
+
+http.listen(appEnv.port, function(){
+	console.log("listening on " + appEnv.port);
 });
 
 
