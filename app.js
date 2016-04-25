@@ -34,24 +34,62 @@ app.get('/', function(res) {
 });
 
 var word;
+var time2;
+var SSID;
 
 //We pull the word because the first time is always undefined
 pullWord();
 console.log(word);
 
+var clients = {};
+
 io.on("connection", function (socket) {
 	
 	console.log("a user connected!");	
+	clients[socket.id] = socket;
 	
   socket.on('get word', function () {
 	pullWord();
-	//setTimeout(function(){
-	//	console.log("sleeping");
-	//}, 1000);
+
 	console.log("Get Word: " + word);
   	
     io.emit('message', word);
   });
+  
+  	socket.on("select winner", function(time1)
+  	{
+  		if(time2 !== null)
+  		{
+  			if(time1 > time2)
+			{
+				console.log("Winner is user1");
+				socket.sendFile("/public/win.html");
+				clients[SSID].sendFile("/public/lose.html");
+				SSID = null;
+				time2 = null;
+			}
+			else if (time1 < time2)
+			{
+				console.log("Winner is user2");
+				socket.sendFile("/public/lose.html");
+				clients[SSID].sendFile("/public/win.html");
+				SSID = null;
+				time2 = null;
+			}
+			else if (time1 === time2)
+			{
+				//Highly unlikely
+				console.log("Tie");
+				socket.sendFile("/public/win.html");
+				clients[SSID].sendFile("/public/win.html");
+			}
+  		}
+  		else
+  		{
+  			time2 = time1;
+  			SSID = socket.id;
+  		}
+  	});
 	
 	socket.on('disconnect', function() {
 		console.log('user disconnected');
