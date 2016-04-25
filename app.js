@@ -4,6 +4,7 @@
 // node.js starter application for Bluemix
 //------------------------------------------------------------------------------
 
+/*globals word:true */
 console.log("App started");
 
 // This application uses express as its web server
@@ -27,21 +28,30 @@ var http = require('http').Server(app);
 
 var io = require('socket.io')(http);
 
-app.get('/', function(req, res) {
-		res.sendfile('/index.html');
+
+app.get('/', function(res) {
+		res.sendFile('/public/index.html');
 });
 
+var word;
 
-io.on('connection', function (socket) {
-   console.log("a user connected!");
-   var words = ["Yikes", "Same", "Twist", "Horny", "Memes", "Uegh"];
-   var tempNum = Math.floor(Math.random() * 5);
-    
-   var str = words[tempNum];
-    
-   console.log("Server emits " + str + "\n");
-   socket.emit('message', str);
-   
+//We pull the word because the first time is always undefined
+pullWord();
+console.log(word);
+
+io.on("connection", function (socket) {
+	
+	console.log("a user connected!");	
+	
+  socket.on('get word', function () {
+	pullWord();
+	setTimeout(function(){
+		console.log("sleeping");
+	}, 1000);
+	console.log("Get Word: " + word);
+  	
+    socket.broadcast.emit('message', word);
+  });
 	
 	socket.on('disconnect', function() {
 		console.log('user disconnected');
@@ -56,7 +66,6 @@ http.listen(appEnv.port, function(){
 
 function pullWord(){
 	//********************Connect to database and get string********************
-	var word = null;
 	var env = null;
 	var key = -1;
 	if (process.env.VCAP_SERVICES) {
@@ -78,8 +87,12 @@ function pullWord(){
       	if (err1) console.log(err1);
       	else 
       	{
-      		//console.log("Database returns: " + rows[0].dictionary + "\n");
       		word = rows[0].dictionary;
+      		//console.log("Database returns: " + rows[0].dictionary + "\n");
+      		//console.log(word);
+      		connection.close(function(err2) { 
+        	if(err2) console.log(err2); });
+      		return;
   		}
 
       	connection.close(function(err2) { 
@@ -88,7 +101,6 @@ function pullWord(){
     	});
 	});
 	
-	return word;
 }
 
 function findKey(obj,lookup) {
