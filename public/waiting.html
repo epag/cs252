@@ -18,25 +18,7 @@
     <link href="cover.css" rel="stylesheet">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script> 
 
-<script src="/socket.io/socket.io.js"></script>
-<script>
-	var socket = io.connect("https://typefight.mybluemix.net");
-</script>
 
-
-<script>   
-  /*globals io */
-  function updateWord()
-  {
-  	console.log("Updating word");
-  	socket.emit('get word');
-  	//Need to figure out how to get response from the socket.
-  	
-  	//Then set the word to the word from the server
-  	//document.getElementById("word").innerHTML = message;
-  }
-
- </script>
 
 <script type="text/javascript">		
 		function stopRKey(evt) {
@@ -66,6 +48,45 @@
   </head>
 
   <body>
+ 
+  <script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
+
+
+
+<script>   
+
+  /*globals io */
+  function updateWord()
+  {
+  	//var wordFromServer = "didnt work...";
+  	console.log("set wordFromServer");
+  	
+  	var socket = io();
+
+	socket.on('message', function(message){
+    	document.getElementById("word").innerHTML = message.toString();
+    });
+	/*
+  	console.log("Updating word");
+  	socket.on('connection', function(){
+  		console.log("Connected!\n");
+  	});
+  	
+  	socket.emit('get word', wordFromServer);
+  	
+  	socket.on('new word', function(data){
+  		console.log("Client recieved: " + data + "\n");
+  		wordFromServer = data;
+  	});
+  	
+  	//Need to figure out how to get response from the socket.
+  	
+  	//Then set the word to the word from the server
+  	*/
+  	
+  }
+
+ </script>
   	
   	<!-- Trying to make calls to the server -->
     <!-- <script src="http://typefight.mybluemix.com/socket.io/socket.io.js"></script> -->
