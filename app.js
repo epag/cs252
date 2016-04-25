@@ -70,8 +70,8 @@ io.on("connection", function (socket) {
   			if(actualTime1 > time2)
 			{
 				console.log("Winner is user1");
-				socket.emit("you lose");
-				socket.broadcast.emit("you win");
+				socket.emit("you lost");
+				socket.broadcast.emit("you won");
 				SSID = null;
 				time2 = null;
 			}
@@ -79,7 +79,7 @@ io.on("connection", function (socket) {
 			{
 				console.log("Winner is user2");
 				socket.emit("you won");
-				socket.broadcast.emit("you lose");
+				socket.broadcast.emit("you lost");
 				SSID = null;
 				time2 = null;
 			}
