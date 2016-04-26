@@ -33,6 +33,7 @@
 		  var node = (evt.target) ? evt.target : ((evt.srcElement) ? evt.srcElement : null);
 		  if ((evt.keyCode == 13) && (node.type=="text"))  
 		  {
+		  	document.getElementById("interaction").innerHTML="WAITING ON YOUR OPPONENT...";
 		  	console.log("Enter was pressed");
 		  	determineTime(Date.now());
 		  	getResults();
@@ -182,7 +183,7 @@
             	<div id="message">Time till you get a word</div>
             </div>
             <div class="away">
-            	<div id="interaction">Click the button when you are ready for a word</div>
+            	<div id="interaction">Click the button when you are ready for a word and after we match you with a partner we will start a countdown</div>
             </div>
             
             
