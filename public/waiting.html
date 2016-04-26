@@ -35,6 +35,9 @@
 		  {
 		  	document.getElementById("interaction").innerHTML="WAITING ON YOUR OPPONENT...";
 		  	console.log("Enter was pressed");
+		   //var userInput = document.getElementById("input").value;
+		    //console.log(userInput);
+		  	//alert(userInput);
 		  	determineTime(Date.now());
 		  	getResults();
 		  	//window.location.href = "https://typefight.mybluemix.net/loading.html";
@@ -103,6 +106,7 @@
 				 * a response it then starts the counter. 
 				 */
 				function CreateTimer(TimerID, Time) {
+  					document.getElementById("interaction").innerHTML="Waiting for opponent to connect";
   					socket.emit("get word");
   					socket.on('message', function(message){
     					finalWord = message.toString();
@@ -183,13 +187,13 @@
             	<div id="message">Time till you get a word</div>
             </div>
             <div class="away">
-            	<div id="interaction">Click the button when you are ready for a word and after we match you with a partner we will start a countdown</div>
+            	<div id="interaction">Click the button when you are ready to play!</div>
             </div>
             
             
   
 	            <form action="" method="post" autocomplete="off">
-				<input id="word" type="text" value="" " />
+				<input id="input" type="text" value="" " />
 
                       <span id="hack">
    			<td align="left" colspan="1">
