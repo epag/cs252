@@ -35,11 +35,16 @@
 		  {
 		  	document.getElementById("interaction").innerHTML="WAITING ON YOUR OPPONENT...";
 		  	console.log("Enter was pressed");
-		   //var userInput = document.getElementById("input").value;
-		    //console.log(userInput);
-		  	//alert(userInput);
-		  	determineTime(Date.now());
-		  	getResults();
+		    var userInput = document.getElementById('input');
+		    //console.log("The user typed: " + userInput.value);
+		    //alert(userInput.value.toString());
+		    //document.getElementById("interaction").innerHTML=userInput.value.toString();
+		    if(validateInput(userInput.value.toString())){
+		  		//alert(userInput);
+		  		determineTime(Date.now());
+		  		getResults();
+	  		}
+
 		  	//window.location.href = "https://typefight.mybluemix.net/loading.html";
 		  	return false;
 		  }
@@ -165,6 +170,18 @@
 		  			//alert(typeTime);
 				}
 				 
+				function validateInput(input) {
+					
+					//alert("input: " + input + "\nPrompt: " + finalWord + "\n");
+					if(input.toString() === finalWord.toString()){
+						//alert("true");
+						return true;
+					}
+						//alert("false");
+						document.getElementById("misspelled").innerHTML="Check your spelling!";
+						return false;
+				} 
+				 
 				 /*
 				  * Updates the counter
 				  */
@@ -192,7 +209,7 @@
             
             
   
-	            <form action="" method="post" autocomplete="off">
+	          
 				<input id="input" type="text" value="" " />
 
                       <span id="hack">
@@ -200,6 +217,8 @@
    			   <button type="button" id="button" onClick="this.disabled=true;CreateTimer('timer', 5)">Ready?</button> 
    			</td>
    						</span>
+            <div class="away">
+            	<div id="misspelled"></div>
             </p>
           </div>
 
